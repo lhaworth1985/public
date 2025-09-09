@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Servicing & Onboarding</title>
+  <link rel="stylesheet" href="assets/common.css" />
+  <script defer src="assets/app.js"></script>
+</head>
+<body>
+<header class="site">
+  <div class="container sitebar">
+    <a href="index.html" class="logo">
+      <img src="http://fortys.co.uk/wp-content/uploads/2020/09/Fortyscapital-new.png" 
+           alt="Fortys Capital Logo" style="height:28px; display:block" />
+    </a>
+    <nav class="nav">
+      <a href="index.html">Dashboard</a>
+      <a href="applications.html">Applications</a>
+      <a href="onboarding.html" class="active">Onboarding</a>
+      <a href="valuations.html">Valuations</a>
+      <a href="legals.html">Legals</a>
+      <a href="funding.html">Funding</a>
+      <a href="completion.html">Completion</a>
+      <a href="reports.html">Reports</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+</header>
+<div class="toolbar" style="background:var(--surf);border-bottom:1px solid var(--line)">
+  <div class="container" style="display:flex;justify-content:flex-end;gap:10px;padding:10px 20px">
+    <button class="btn" onclick="location.href='applications.html'">View Apps</button>
+    <button class="btn primary" onclick="location.href='new-application.html'">+ New Application</button>
+  </div>
+</div>
+<main class="page container">
+  <section class="card">
+    <h2>Borrower Onboarding</h2>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
+      <div><label>Borrower Name</label><input placeholder="Rivendale Ltd" /></div>
+      <div><label>Company Number</label><input placeholder="01234567" /></div>
+      <div><label>Primary Contact</label><input placeholder="Name / Email / Phone" /></div>
+      <div><label>Risk Flags</label><input placeholder="PEP, KYC expiry" /></div>
+      <div style="grid-column:1/-1"><label>Notes</label><textarea placeholder="Notes…"></textarea></div>
+    </div>
+    <div class="stack right" style="margin-top:8px">
+      <button class="btn">Pull CreditSafe</button>
+      <button class="btn">Companies House Lookup</button>
+      <button class="btn primary">Save Profile</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Directory</h2>
+    <table>
+      <thead><tr><th>Type</th><th>Name</th><th>Key</th><th>Stats</th><th></th></tr></thead>
+      <tbody>
+        <tr><td>Borrower</td><td>Rivendale Ltd</td><td>07999888</td><td>Loans: 3</td><td><a class="btn" href="applications.html">View Apps</a></td></tr>
+        <tr><td>Broker</td><td>Smith Finance</td><td>FCA 123456</td><td>Apps: 18</td><td><a class="btn" href="reports.html">Analytics</a></td></tr>
+        <tr><td>Valuer</td><td>North &amp; Co</td><td>Panel: Approved</td><td>TAT: 3.8d</td><td><a class="btn" href="valuations.html">Open</a></td></tr>
+        <tr><td>Solicitor</td><td>Harper Law</td><td>Panel: Main</td><td>Avg Fee: £3,400</td><td><a class="btn" href="legals.html">Open</a></td></tr>
+        <tr><td>Funder</td><td>Albion Capital</td><td>Status: Active</td><td>History: £12.4m</td><td><a class="btn" href="funding.html">Open</a></td></tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+</body>
+</html>

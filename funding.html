@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Funding</title>
+  <link rel="stylesheet" href="assets/common.css" />
+  <script defer src="assets/app.js"></script>
+  <style>
+    .board{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+    .col{background:var(--surf);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:12px}
+    .col h3{margin:0 0 8px 0}
+    .cardlet{background:#f7f9fc;border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:10px}
+  </style>
+</head>
+<body>
+<header class="site">
+  <div class="container sitebar">
+    <a href="index.html" class="logo">
+      <img src="http://fortys.co.uk/wp-content/uploads/2020/09/Fortyscapital-new.png" 
+           alt="Fortys Capital Logo" style="height:28px; display:block" />
+    </a>
+    <nav class="nav">
+      <a href="index.html">Dashboard</a>
+      <a href="applications.html">Applications</a>
+      <a href="onboarding.html">Onboarding</a>
+      <a href="valuations.html">Valuations</a>
+      <a href="legals.html">Legals</a>
+      <a href="funding.html" class="active">Funding</a>
+      <a href="completion.html">Completion</a>
+      <a href="reports.html">Reports</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+  </div>
+</header>
+<div class="toolbar" style="background:var(--surf);border-bottom:1px solid var(--line)">
+  <div class="container" style="display:flex;justify-content:flex-end;gap:10px;padding:10px 20px">
+    <button class="btn" onclick="alert('Inviting funders…')">Invite Funders</button>
+    <button class="btn primary" onclick="alert('Generating pitch…')">Generate Pitch</button>
+  </div>
+</div>
+<main class="page container">
+  <section class="board">
+    <div class="col">
+      <h3>Requested</h3>
+      <div class="cardlet"><strong>APP-00940 • £2.4m</strong><div class="pill">4 funders invited</div></div>
+      <div class="cardlet"><strong>APP-00942 • £3.0m</strong><div class="pill">2 funders invited</div></div>
+    </div>
+    <div class="col">
+      <h3>Responses</h3>
+      <div class="cardlet"><strong>APP-00940</strong><div class="pill">2 accepted • 1 declined</div></div>
+    </div>
+    <div class="col">
+      <h3>Committed</h3>
+      <div class="cardlet"><strong>APP-00925 • £1.1m</strong><div class="pill">Fully allocated</div></div>
+    </div>
+    <div class="col">
+      <h3>Conflicts</h3>
+      <div class="cardlet"><strong>APP-00941</strong><div class="pill">Overlap flagged</div></div>
+    </div>
+  </section>
+</main>
+</body>
+</html>

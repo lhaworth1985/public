@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Valuations</title>
+  <link rel="stylesheet" href="assets/common.css" />
+  <script defer src="assets/app.js"></script>
+</head>
+<body>
+<header class="site">
+  <div class="container sitebar">
+    <a href="index.html" class="logo">
+      <img src="http://fortys.co.uk/wp-content/uploads/2020/09/Fortyscapital-new.png" 
+           alt="Fortys Capital Logo" style="height:28px; display:block" />
+    </a>
+    <nav class="nav">
+      <a href="index.html">Dashboard</a>
+      <a href="applications.html">Applications</a>
+      <a href="onboarding.html">Onboarding</a>
+      <a href="valuations.html" class="active">Valuations</a>
+      <a href="legals.html">Legals</a>
+      <a href="funding.html">Funding</a>
+      <a href="completion.html">Completion</a>
+      <a href="reports.html">Reports</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+  </div>
+</header>
+<div class="toolbar" style="background:var(--surf);border-bottom:1px solid var(--line)">
+  <div class="container" style="display:flex;justify-content:flex-end;gap:10px;padding:10px 20px">
+    <button class="btn" onclick="alert('Downloading CSV…')">Download CSV</button>
+    <button class="btn primary" onclick="alert('Requesting quotes…')">Request Quotes</button>
+  </div>
+</div>
+<main class="page container">
+  <section class="card">
+    <h2>Instructions</h2>
+    <table>
+      <thead><tr><th>Instruction</th><th>Application</th><th>Valuer</th><th>Quote</th><th>ETA</th><th>Status</th><th></th></tr></thead>
+      <tbody>
+        <tr><td>VAL-2315</td><td><a href="case-APP-00940.html">APP-00940</a></td><td>North &amp; Co</td><td>£2,150</td><td>3d</td><td><span class="pill">Awaiting report</span></td><td><a class="btn" href="#">Nudge</a></td></tr>
+        <tr><td>VAL-2316</td><td><a href="case-APP-00941.html">APP-00941</a></td><td>UK Valuers</td><td>£1,850</td><td>2d</td><td><span class="pill">Scheduled</span></td><td><a class="btn" href="#">Open</a></td></tr>
+        <tr><td>VAL-2321</td><td><a href="case-APP-00925.html">APP-00925</a></td><td>Regions Survey</td><td>£1,990</td><td>4d</td><td><span class="pill">Quotes received</span></td><td><a class="btn" href="#">Compare</a></td></tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+</body>
+</html>

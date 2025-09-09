@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reports & Analytics</title>
+  <link rel="stylesheet" href="assets/common.css" />
+  <script defer src="assets/app.js"></script>
+</head>
+<body>
+<header class="site">
+  <div class="container sitebar">
+    <a href="index.html" class="logo">
+      <img src="http://fortys.co.uk/wp-content/uploads/2020/09/Fortyscapital-new.png" 
+           alt="Fortys Capital Logo" style="height:28px; display:block" />
+    </a>
+    <nav class="nav">
+      <a href="index.html">Dashboard</a>
+      <a href="applications.html">Applications</a>
+      <a href="onboarding.html">Onboarding</a>
+      <a href="valuations.html">Valuations</a>
+      <a href="legals.html">Legals</a>
+      <a href="funding.html">Funding</a>
+      <a href="completion.html">Completion</a>
+      <a href="reports.html" class="active">Reports</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+    <button class="burger" data-burger>☰</button>
+  </div>
+</header>
+
+<main class="page container">
+  <section class="grid kpi">
+    <div class="tile"><div class="lbl">Broker vs Direct</div><div class="val">58% / 42%</div><div class="pill">YoY +6% broker</div></div>
+    <div class="tile"><div class="lbl">KYC Reject Rate</div><div class="val">23%</div><div class="pill">Target &lt; 15%</div></div>
+    <div class="tile"><div class="lbl">Valuer TAT</div><div class="val">4.1d</div><div class="pill">Quotes pending: 5</div></div>
+    <div class="tile"><div class="lbl">Completion Cycle</div><div class="val">9.7d</div><div class="pill">Target 8d</div></div>
+  </section>
+
+  <section class="card">
+    <h2>Application Volumes (MTD)</h2>
+    <table>
+      <thead><tr><th>Channel</th><th>Count</th><th>Accept</th><th>Reject</th><th>In Progress</th></tr></thead>
+      <tbody>
+        <tr><td>Broker</td><td>108</td><td>62</td><td>14</td><td>32</td></tr>
+        <tr><td>Direct</td><td>76</td><td>33</td><td>10</td><td>33</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>Valuer Performance</h2>
+    <table>
+      <thead><tr><th>Valuer</th><th>Avg Quote</th><th>Avg TAT</th><th>Error Rate</th></tr></thead>
+      <tbody>
+        <tr><td>North &amp; Co</td><td>£2,120</td><td>3.8d</td><td>1.1%</td></tr>
+        <tr><td>UK Valuers</td><td>£1,960</td><td>4.3d</td><td>0.9%</td></tr>
+        <tr><td>Regions Survey</td><td>£1,990</td><td>4.8d</td><td>1.6%</td></tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+</body>
+</html>

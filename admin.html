@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin</title>
+  <link rel="stylesheet" href="assets/common.css" />
+  <script defer src="assets/app.js"></script>
+</head>
+<body>
+<header class="site">
+  <div class="container sitebar">
+    <a href="index.html" class="logo">
+      <img src="http://fortys.co.uk/wp-content/uploads/2020/09/Fortyscapital-new.png" 
+           alt="Fortys Capital Logo" style="height:28px; display:block" />
+    </a>
+    <nav class="nav">
+      <a href="index.html">Dashboard</a>
+      <a href="applications.html">Applications</a>
+      <a href="onboarding.html">Onboarding</a>
+      <a href="valuations.html">Valuations</a>
+      <a href="legals.html">Legals</a>
+      <a href="funding.html">Funding</a>
+      <a href="completion.html">Completion</a>
+      <a href="reports.html">Reports</a>
+      <a href="admin.html" class="active">Admin</a>
+    </nav>
+    <button class="burger" data-burger>☰</button>
+  </div>
+</header>
+
+<main class="page container">
+  <section class="card">
+    <h2>Roles &amp; Access</h2>
+    <div class="stack" style="margin-bottom:10px">
+      <span class="pill">CaseOwner</span><span class="pill">Underwriter</span><span class="pill">ValuationOps</span><span class="pill">LegalOps</span><span class="pill">FundingOps</span><span class="pill">ComplianceOfficer</span>
+    </div>
+    <table>
+      <thead><tr><th>User</th><th>Role</th><th>Status</th><th></th></tr></thead>
+      <tbody>
+        <tr><td>M. Patel</td><td>CaseOwner</td><td><span class="pill">Active</span></td><td><button class="btn">Edit</button></td></tr>
+        <tr><td>J. Clarke</td><td>Underwriter</td><td><span class="pill">Active</span></td><td><button class="btn">Edit</button></td></tr>
+        <tr><td>S. Rahman</td><td>FundingOps</td><td><span class="pill">Active</span></td><td><button class="btn">Edit</button></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>Integrations</h2>
+    <table>
+      <thead><tr><th>System</th><th>Status</th><th>Auth</th><th></th></tr></thead>
+      <tbody>
+        <tr><td>Creditsafe</td><td><span class="pill">OK</span></td><td>OAuth2</td><td><button class="btn">Configure</button></td></tr>
+        <tr><td>Land Registry</td><td><span class="pill">OK</span></td><td>API Key</td><td><button class="btn">Configure</button></td></tr>
+        <tr><td>Servicing</td><td><span class="pill">Lag</span></td><td>OAuth2</td><td><button class="btn">Retry</button></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>Templates</h2>
+    <table>
+      <thead><tr><th>Name</th><th>Type</th><th>Version</th><th></th></tr></thead>
+      <tbody>
+        <tr><td>AIP Letter</td><td>Word</td><td>v3</td><td><button class="btn">Download</button></td></tr>
+        <tr><td>Valuation Instruction</td><td>Word</td><td>v2</td><td><button class="btn">Download</button></td></tr>
+        <tr><td>Funding Request</td><td>PDF</td><td>v1</td><td><button class="btn">Download</button></td></tr>
+      </tbody>
+    </table>
+    <div class="stack" style="margin-top:10px">
+      <input type="file" />
+      <select><option>Word</option><option>PDF</option></select>
+      <button class="btn primary">Upload</button>
+    </div>
+  </section>
+</main>
+</body>
+</html>

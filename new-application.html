@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>New Application</title>
+  <link rel="stylesheet" href="./assets/common.css" />
+  <script defer src="./assets/app.js"></script>
+  <style>
+    /* Ensure brand is black/white if common.css wasn't updated */
+    :root{ --brand:#000; --brand-ink:#fff; }
+
+    .wizard{max-width:1000px;margin:20px auto;padding:0 20px;display:grid;gap:20px}
+    .tracker{display:flex;gap:8px;overflow-x:auto}
+    .step{padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:#f1f3f8;color:var(--muted);font-weight:700;white-space:nowrap}
+    .step.active{background:var(--brand);border-color:var(--brand);color:#fff}
+
+    .grid-auto{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+    .actions{display:flex;gap:8px;justify-content:flex-end;align-items:center}
+    .danger{outline:2px solid #e25555}
+
+    /* Start step cards */
+    .choiceGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+    .choice{cursor:pointer;display:flex;flex-direction:column;gap:10px;padding:16px;border-radius:12px;border:1px solid var(--line);background:#fff;box-shadow:var(--shadow)}
+    .choice:hover{outline:2px solid #0001}
+    .choice h3{margin:0}
+    .muted{color:var(--muted)}
+
+    /* Toolbar under nav for actions */
+    .toolbar{background:var(--surf);border-bottom:1px solid var(--line)}
+    .toolbar .container{display:flex;justify-content:flex-end;gap:10px;padding:10px 20px}
+
+    /* Lookup UI */
+    .lookupRow{display:flex;gap:8px;flex-wrap:wrap}
+    .results{display:grid;gap:10px;margin-top:12px}
+    .result{display:flex;justify-content:space-between;align-items:center;padding:12px;border:1px solid var(--line);border-radius:10px;background:#f7f9fc}
+    .small{font-size:12px;color:var(--muted)}
+  </style>
+</head>
+<body>
+
+<!-- Header / Navigation -->
+<header class="site">
+  <div class="container sitebar">
+    <a href="index.html" class="logo" style="display:flex;align-items:center">
+      <img src="http://fortys.co.uk/wp-content/uploads/2020/09/Fortyscapital-new.png"
+           alt="Fortys Capital Logo" style="height:28px;display:block" />
+    </a>
+    <div class="brand"> </div>
+    <nav class="nav">
+      <a href="index.html">Dashboard</a>
+      <a href="applications.html" class="active">Applications</a>
+      <a href="onboarding.html">Onboarding</a>
+      <a href="valuations.html">Valuations</a>
+      <a href="legals.html">Legals</a>
+      <a href="funding.html">Funding</a>
+      <a href="completion.html">Completion</a>
+      <a href="reports.html">Reports</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+    <button class="burger" data-burger aria-label="Toggle navigation">☰</button>
+  </div>
+</header>
+
+<!-- Toolbar row (keeps header compact) -->
+<div class="toolbar">
+  <div class="container">
+    <button class="btn" onclick="location.href='applications.html'">Cancel</button>
+    <button class="btn primary" id="submitBtn" style="display:none">Submit</button>
+  </div>
+</div>
+
+<main>
+  <section class="wizard">
+
+    <!-- Progress Tracker (now includes Start as step 1) -->
+    <div class="card">
+      <div class="tracker" id="tracker">
+        <div class="step" data-step="0">Start</div>
+        <div class="step" data-step="1">Borrower</div>
+        <div class="step" data-step="2">Property</div>
+        <div class="step" data-step="3">Loan</div>
+        <div class="step" data-step="4">Documents</div>
+        <div class="step" data-step="5">Review</div>
+      </div>
+    </div>
+
+    <!-- STEP 0: START (New vs Lookup) -->
+    <section class="card step-pane" data-step="0">
+      <h2>How would you like to start?</h2>
+      <div class="choiceGrid">
+        <button class="choice" type="button" id="startNew">
+          <h3>➕ Create New Loan</h3>
+          <p class="muted">Start with a blank application and enter borrower, property and loan details.</p>
+          <div><span class="pill">Recommended</span></div>
+        </button>
+
+        <div class="choice" id="startLookup">
+          <h3>🔎 Lookup Existing Data</h3>
+          <p class="muted">Find an existing borrower/case to prefill the form. You can edit anything before submitting.</p>
+
+          <div class="lookupRow" style="margin-top:6px">
+            <input id="lookupInput" placeholder="Search borrower, company #, address, or case ID…" style="flex:1;min-width:220px" />
+            <button class="btn" type="button" id="lookupBtn">Search</button>
+          </div>
+
+          <div id="lookupResults" class="results" aria-live="polite"></div>
+          <p class="small">Tip: Try “Rivendale”, “APP-00940”, or an address like “88 King St”.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 1: Borrower -->
+    <section class="card step-pane" data-step="1" hidden>
+      <h2>Borrower</h2>
+      <div class="grid-auto">
+        <div><label>Borrower Name *</label><input id="borrowerName" placeholder="e.g. Rivendale Ltd"></div>
+        <div><label>Company Number</label><input id="companyNo" placeholder="e.g. 01234567"></div>
+        <div><label>Primary Contact</label><input id="contact" placeholder="Name / Email / Phone"></div>
+        <div><label>Channel</label><select id="channel"><option>Broker</option><option>Direct</option></select></div>
+        <div style="grid-column:1/-1"><label>Notes</label><textarea id="borrowerNotes" placeholder="Anything we should know?"></textarea></div>
+      </div>
+    </section>
+
+    <!-- STEP 2: Property -->
+    <section class="card step-pane" data-step="2" hidden>
+      <h2>Property</h2>
+      <div class="grid-auto">
+        <div><label>Address *</label><input id="property" placeholder="e.g. 88 King St"></div>
+        <div><label>Postcode</label><input id="postcode" placeholder="SW1A 1AA"></div>
+        <div><label>Type</label><select id="ptype"><option>Residential</option><option>Commercial</option><option>Land</option></select></div>
+        <div><label>Region</label><input id="region" placeholder="e.g. London"></div>
+      </div>
+    </section>
+
+    <!-- STEP 3: Loan -->
+    <section class="card step-pane" data-step="3" hidden>
+      <h2>Loan</h2>
+      <div class="grid-auto">
+        <div><label>Amount (£) *</label><input id="amount" type="number" min="1" placeholder="e.g. 2400000"></div>
+        <div><label>Purpose</label><select id="purpose"><option>Bridging</option><option>Development</option><option>Refinance</option></select></div>
+        <div><label>Term (months)</label><input id="term" type="number" min="1" placeholder="12"></div>
+        <div><label>LTV (%)</label><input id="ltv" type="number" min="1" max="100" placeholder="65"></div>
+        <div style="grid-column:1/-1"><label>Risk Notes</label><textarea id="riskNotes" placeholder="KYC, PEP, Exposure, ..."></textarea></div>
+      </div>
+    </section>
+
+    <!-- STEP 4: Documents -->
+    <section class="card step-pane" data-step="4" hidden>
+      <h2>Documents</h2>
+      <div class="grid-auto" style="grid-template-columns:1fr">
+        <div><label>Files (comma-separated)</label><input id="docs" placeholder="AIP_Letter.pdf, BankStatements.pdf"></div>
+      </div>
+    </section>
+
+    <!-- STEP 5: Review -->
+    <section class="card step-pane" data-step="5" hidden>
+      <h2>Review</h2>
+      <div id="review"></div>
+    </section>
+
+    <!-- Bottom Actions -->
+    <section class="card">
+      <div class="actions">
+        <button class="btn" id="saveDraft">Save Draft</button>
+        <button class="btn" id="backBtn">Back</button>
+        <button class="btn primary" id="nextBtn">Next</button>
+      </div>
+      <div class="pill" style="margin-top:10px">Required: Borrower, Property, Amount</div>
+    </section>
+
+  </section>
+</main>
+
+<script>
+  // ----- Wizard state -----
+  const steps = Array.from(document.querySelectorAll('.step-pane'));
+  const tracker = Array.from(document.querySelectorAll('#tracker .step'));
+  const nextBtn = document.getElementById('nextBtn');
+  const backBtn = document.getElementById('backBtn');
+  const saveDraftBtn = document.getElementById('saveDraft');
+  const submitBtn = document.getElementById('submitBtn');
+  const review = document.getElementById('review');
+
+  let idx = 0; // start at Start step
+
+  const fields = {
+    borrowerName: document.getElementById('borrowerName'),
+    companyNo: document.getElementById('companyNo'),
+    contact: document.getElementById('contact'),
+    channel: document.getElementById('channel'),
+    borrowerNotes: document.getElementById('borrowerNotes'),
+    property: document.getElementById('property'),
+    postcode: document.getElementById('postcode'),
+    ptype: document.getElementById('ptype'),
+    region: document.getElementById('region'),
+    amount: document.getElementById('amount'),
+    purpose: document.getElementById('purpose'),
+    term: document.getElementById('term'),
+    ltv: document.getElementById('ltv'),
+    riskNotes: document.getElementById('riskNotes'),
+    docs: document.getElementById('docs')
+  };
+
+  const DRAFT_KEY = 'newAppDraft';
+
+  function setActive(i){
+    idx = i;
+    steps.forEach((s,k)=> s.hidden = k!==i);
+    tracker.forEach((t,k)=> t.classList.toggle('active', k===i));
+    backBtn.style.display = i===0 ? 'none' : 'inline-block';
+    nextBtn.style.display = i===steps.length-1 ? 'none' : 'inline-block';
+    submitBtn.style.display = i===steps.length-1 ? 'inline-block' : 'none';
+    if(i===steps.length-1) buildReview();
+  }
+
+  function getData(){
+    const d = {};
+    Object.entries(fields).forEach(([k,el])=> d[k] = (el?.value||'').trim());
+    return d;
+  }
+  function setData(d){ Object.entries(d||{}).forEach(([k,v])=> fields[k] && (fields[k].value=v)); }
+  function esc(x){ return (x||'').replace(/[&<>"]/g, s=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s])); }
+
+  function validateStep(i){
+    if(i===1 && !fields.borrowerName.value.trim()){ fields.borrowerName.classList.add('danger'); fields.borrowerName.focus(); return false; }
+    if(i===2 && !fields.property.value.trim()){ fields.property.classList.add('danger'); fields.property.focus(); return false; }
+    if(i===3 && !fields.amount.value.trim()){ fields.amount.classList.add('danger'); fields.amount.focus(); return false; }
+    return true;
+  }
+
+  function buildReview(){
+    const d = getData();
+    review.innerHTML = `
+      <div class="grid-auto" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
+        <div><strong>Borrower</strong><br>${esc(d.borrowerName)||'—'}</div>
+        <div><strong>Company #</strong><br>${esc(d.companyNo)||'—'}</div>
+        <div><strong>Contact</strong><br>${esc(d.contact)||'—'}</div>
+        <div><strong>Channel</strong><br>${esc(d.channel)||'—'}</div>
+        <div style="grid-column:1/-1"><strong>Notes</strong><br>${esc(d.borrowerNotes)||'—'}</div>
+        <div><strong>Property</strong><br>${esc(d.property)||'—'}</div>
+        <div><strong>Postcode</strong><br>${esc(d.postcode)||'—'}</div>
+        <div><strong>Type</strong><br>${esc(d.ptype)||'—'}</div>
+        <div><strong>Region</strong><br>${esc(d.region)||'—'}</div>
+        <div><strong>Amount</strong><br>${esc(d.amount)||'—'}</div>
+        <div><strong>Purpose</strong><br>${esc(d.purpose)||'—'}</div>
+        <div><strong>Term</strong><br>${esc(d.term)||'—'}</div>
+        <div><strong>LTV</strong><br>${esc(d.ltv)||'—'}</div>
+        <div style="grid-column:1/-1"><strong>Risk Notes</strong><br>${esc(d.riskNotes)||'—'}</div>
+        <div style="grid-column:1/-1"><strong>Documents</strong><br>${esc(d.docs)||'—'}</div>
+      </div>
+    `;
+  }
+
+  // step navigation
+  nextBtn.addEventListener('click', ()=>{
+    // If on Start, move to Borrower
+    if(idx===0){ setActive(1); return; }
+    if(validateStep(idx)) setActive(Math.min(idx+1, steps.length-1));
+  });
+  backBtn.addEventListener('click', ()=> setActive(Math.max(idx-1, 0)));
+
+  // Save/Submit
+  saveDraftBtn.addEventListener('click', ()=>{
+    localStorage.setItem(DRAFT_KEY, JSON.stringify({savedAt:new Date().toISOString(), data:getData()}));
+    alert('Draft saved.');
+  });
+  submitBtn.addEventListener('click', ()=>{
+    if(!fields.borrowerName.value.trim() || !fields.property.value.trim() || !fields.amount.value.trim()){
+      alert('Please complete required fields (Borrower, Property, Amount).'); return;
+    }
+    localStorage.removeItem(DRAFT_KEY);
+    const fakeId = 'APP-' + Math.floor(10000 + Math.random()*89999);
+    alert('Application submitted! Temporary ID: ' + fakeId);
+    location.href='applications.html';
+  });
+
+  // clear danger on input
+  Object.values(fields).forEach(el=> el && el.addEventListener('input', ()=> el.classList.remove('danger')));
+
+  // ----- Lookup mock data & logic -----
+  const mock = [
+    {
+      id:'APP-00940', borrowerName:'Rivendale Ltd', companyNo:'07999888',
+      contact:'m.patel@rivendale.example • +44 20 1234 5678', channel:'Broker',
+      property:'88 King St', postcode:'SW1A 1AA', ptype:'Commercial', region:'London',
+      amount:'2400000', purpose:'Bridging', term:'12', ltv:'65', riskNotes:'KYC expiring'
+    },
+    {
+      id:'APP-00941', borrowerName:'Green Homes', companyNo:'04555123',
+      contact:'ops@greenhomes.example • +44 20 5555 7777', channel:'Direct',
+      property:'42 Acacia Ave', postcode:'W1A 4ZZ', ptype:'Residential', region:'London',
+      amount:'1100000', purpose:'Refinance', term:'18', ltv:'60', riskNotes:''
+    },
+    {
+      id:'APP-00942', borrowerName:'Bluebird PLC', companyNo:'00338811',
+      contact:'legal@bluebird.example • +44 121 333 8888', channel:'Broker',
+      property:'11 The Crescent', postcode:'M1 1AB', ptype:'Commercial', region:'Manchester',
+      amount:'3000000', purpose:'Development', term:'24', ltv:'58', riskNotes:'Politically exposed director'
+    }
+  ];
+
+  const lookupInput = document.getElementById('lookupInput');
+  const lookupBtn = document.getElementById('lookupBtn');
+  const lookupResults = document.getElementById('lookupResults');
+
+  function renderResults(items){
+    lookupResults.innerHTML = items.map(it=>`
+      <div class="result">
+        <div>
+          <strong>${esc(it.borrowerName)}</strong> <span class="small">(${esc(it.id)})</span><br/>
+          <span class="small">${esc(it.property)} • ${esc(it.postcode)} • ${esc(it.region)}</span>
+        </div>
+        <div class="stack">
+          <button class="btn" data-use="${esc(it.id)}">Use This Record</button>
+          <a class="btn" href="case-${esc(it.id)}.html">Open Case</a>
+        </div>
+      </div>
+    `).join('') || '<div class="small">No matches found.</div>';
+  }
+
+  function doLookup(){
+    const q = (lookupInput.value||'').toLowerCase();
+    const out = mock.filter(m =>
+      m.id.toLowerCase().includes(q) ||
+      m.borrowerName.toLowerCase().includes(q) ||
+      (m.companyNo||'').toLowerCase().includes(q) ||
+      (m.property||'').toLowerCase().includes(q) ||
+      (m.postcode||'').toLowerCase().includes(q) ||
+      (m.region||'').toLowerCase().includes(q)
+    );
+    renderResults(out);
+  }
+
+  lookupBtn.addEventListener('click', doLookup);
+  lookupInput.addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); doLookup(); } });
+  lookupResults.addEventListener('click', e=>{
+    const btn = e.target.closest('button[data-use]');
+    if(!btn) return;
+    const id = btn.getAttribute('data-use');
+    const rec = mock.find(m=>m.id===id);
+    if(rec){
+      setData(rec);
+      alert('Details prefilled from ' + rec.id + '. You can review and edit before submitting.');
+      setActive(1); // jump to Borrower step
+    }
+  });
+
+  // Start choices
+  document.getElementById('startNew').addEventListener('click', ()=> setActive(1));
+  // (startLookup panel is interactive; search -> use record -> go to step 1)
+
+  // Load draft if present
+  try{
+    const raw = localStorage.getItem(DRAFT_KEY);
+    if(raw && confirm('Load saved draft?')) setData(JSON.parse(raw).data);
+  }catch(e){}
+  setActive(0);
+</script>
+
+</body>
+</html>

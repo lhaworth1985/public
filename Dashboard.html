@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard</title>
+  <style>
+    :root{
+      --k2:#76BC21; --bg:#0b0f1a; --surf:#101625; --line:#222b45; --txt:#e6e9f2; --muted:#b7bfd3;
+      --elev:#182037; --shadow:0 10px 30px rgba(0,0,0,.28), 0 2px 8px rgba(0,0,0,.22);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--txt);font:500 15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu}
+    a{color:var(--k2);text-decoration:none}
+    header{background:var(--surf);border-bottom:1px solid var(--line)}
+    .wrap{max-width:1200px;margin:0 auto;padding:16px;display:flex;align-items:center;gap:10px}
+    .logo{width:30px;height:30px;border-radius:8px;background:conic-gradient(from 0deg,var(--k2),#8be343,var(--k2))}
+    h1{font-size:18px;margin:0}
+    .btn{margin-left:auto;background:transparent;color:var(--txt);border:1px solid var(--line);padding:8px 12px;border-radius:12px}
+    .grid{max-width:1200px;margin:16px auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;padding:0 16px}
+    .card{background:var(--surf);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:14px}
+    .kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+    .tile{background:var(--elev);border:1px solid var(--line);border-radius:12px;padding:12px}
+    .tile .val{font-size:24px;font-weight:900}
+    table{width:100%;border-collapse:separate;border-spacing:0 8px;margin-top:10px}
+    thead th{font-size:12px;text-transform:uppercase;opacity:.7;text-align:left;padding:0 8px}
+    tbody tr{background:var(--elev);border:1px solid var(--line)}
+    td{padding:10px 8px}
+    .pill{display:inline-block;background:#162033;border:1px solid #223155;padding:4px 8px;border-radius:999px;font-size:12px;color:#c9d3ef}
+    footer{border-top:1px solid var(--line);color:var(--muted);padding:16px;margin-top:24px;background:var(--surf);text-align:center}
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="logo"></div>
+    <h1>Dashboard</h1>
+    <a class="btn" href="index.html">⬅ Back</a>
+  </div>
+</header>
+
+<main class="grid">
+  <section class="card">
+    <h2>Today’s Snapshot</h2>
+    <div class="kpi">
+      <div class="tile"><div class="lbl">Applications (MTD)</div><div class="val">184</div><div class="pill">Accept 62% • Reject 14%</div></div>
+      <div class="tile"><div class="lbl">Avg Stage Duration</div><div class="val">3.2d</div><div class="pill">↔ vs last wk</div></div>
+      <div class="tile"><div class="lbl">Valuation Turnaround</div><div class="val">4.1d</div><div class="pill">Quotes pending: 5</div></div>
+      <div class="tile"><div class="lbl">Funding Commit Rate</div><div class="val">71%</div><div class="pill">Live opps: 12</div></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>My Active Cases</h2>
+    <table>
+      <thead><tr><th>Case</th><th>Stage</th><th>Owner</th><th>Due</th><th>Status</th><th></th></tr></thead>
+      <tbody>
+        <tr><td>APP-00913 • 42 Acacia Ave</td><td><span class="pill">Valuation</span></td><td>J. Clarke</td><td>Today</td><td><span class="pill">SLA-2h</span></td><td><a class="btn" href="case-APP-00913.html">Open</a></td></tr>
+        <tr><td>APP-00925 • 11 The Crescent</td><td><span class="pill">AIP</span></td><td>S. Rahman</td><td>Tomorrow</td><td>—</td><td><a class="btn" href="case-APP-00925.html">Open</a></td></tr>
+        <tr><td>APP-00940 • 88 King St</td><td><span class="pill">Legals</span></td><td>M. Patel</td><td>Fri</td><td><span class="pill">Docs missing</span></td><td><a class="btn" href="case-APP-00940.html">Open</a></td></tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+
+<footer>Front Office Prototype • Dashboard</footer>
+</body>
+</html>
